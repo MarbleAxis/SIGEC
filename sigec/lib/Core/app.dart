@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-
-import '../Modules/Pages/index.dart';
+import '../Modules/login/pages/login_page.dart';
 
 class MyApp extends StatelessWidget {
   const MyApp({Key? key}) : super(key: key);
@@ -9,11 +8,11 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Flutter Demo',
+      title: 'SIGEC',
       theme: ThemeData(
-        backgroundColor: Colors.indigo.shade900,
+        backgroundColor: const Color.fromARGB(255, 3, 8, 58),
       ),
-      home: const HomePage(),
+      home: const LoginPage(),
     );
   }
 }

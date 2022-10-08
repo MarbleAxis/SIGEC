@@ -1,18 +1,22 @@
 import 'package:flutter/material.dart';
-import 'package:sigec/Modules/login/models/login_models.dart';
+import 'package:sigec/Modules/usuario/usuariosFuncionarios/models/funcionarios_model.dart';
 
-class LoginController extends ChangeNotifier{
+class FuncionariosController extends ChangeNotifier{
+  final nome = TextEditingController();
   final email = TextEditingController();
   final senha = TextEditingController();
+  final tel = TextEditingController();
 
-  void entrarOnClick({
+  void salvarOnPressed({
     required VoidCallback onSuccess,
     required VoidCallback? Function(String erro) onFailure
   }){      
     try{
-      final usuario = LoginModel(
+      final usuario = FuncionariosModel(
         email: email.text,
-        senha: senha.text
+        nome: nome.text,
+        senha: senha.text,
+        tel: tel.text,
       );
       
       usuario.isValid();

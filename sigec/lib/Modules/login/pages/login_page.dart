@@ -1,7 +1,11 @@
+import 'package:motion_toast/motion_toast.dart';
+import 'package:motion_toast/resources/arrays.dart';
+import 'package:sigec/Modules/Agenda/pages/Agenda_PessoalClientes.dart';
+import 'package:sigec/Modules/login/controllers/login_controller.dart';
 import 'package:sigec/Modules/login/pages/EscolherLogin.dart';
-import 'package:sigec/Modules/usuariosClientes/MarcarHorario.dart';
-import 'package:sigec/modules/usuario/pages/usuario_page.dart';
 import 'package:flutter/material.dart';
+import 'package:sigec/Shared/components/button_form/button_form.dart';
+import 'package:sigec/Shared/components/campo_form/campo_form.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({Key? key}) : super(key: key);
@@ -12,6 +16,8 @@ class LoginPage extends StatefulWidget {
 
 class _LoginPageState extends State<LoginPage> {
   var mostrarSenha = false;
+  final _controller = LoginController();
+  int _selectedDestination = 0;
 
   @override
   Widget build(BuildContext context) {
@@ -26,82 +32,65 @@ class _LoginPageState extends State<LoginPage> {
               height: 150,
             ),
 
-            //email
-            Padding(
-              padding: const EdgeInsets.fromLTRB(450, 50, 450, 0),
-              child: TextFormField(
-                keyboardType: TextInputType.emailAddress,
-                decoration: InputDecoration(
-                    hintText: 'Ex. exemplo@mail.com',
-                    label: Text('E-mail:'),
-                    prefixIcon: Icon(Icons.mail),
-                    border: OutlineInputBorder(),
-                    fillColor: Colors.white,
-                    filled: true),
-              ),
+            CampoForm(
+              label: "Email", 
+              hint: "maria@gmail.com", 
+              icon: const Icon(Icons.mail), 
+              teclado: TextInputType.emailAddress,
+              controller: _controller.email,
             ),
-
-            //senha
-            Padding(
-              padding: const EdgeInsets.fromLTRB(450, 20, 450, 0),
-              child: TextFormField(
-                obscureText: !mostrarSenha,
-                keyboardType: TextInputType.text,
-                decoration: InputDecoration(
-                    label: const Text('Senha:'),
-                    prefixIcon: const Icon(Icons.lock),
-                    suffix: IconButton(
-                        onPressed: () {
-                          setState(() {
-                            mostrarSenha = !mostrarSenha;
-                          });
-                        },
-                        icon: Icon(mostrarSenha == true
-                            ? Icons.visibility_off
-                            : Icons.remove_red_eye_outlined)),
-                    border: const OutlineInputBorder(),
-                    fillColor: Colors.white,
-                    filled: true),
-              ),
+            CampoForm(
+              label: "Senha", 
+              hint: "Senha", 
+              icon: const Icon(Icons.lock), 
+              isSenha: true,
+              controller: _controller.senha,
             ),
-
-            //Botão entrar
-            Padding(
-              padding: const EdgeInsets.fromLTRB(450, 50, 450, 0),
-              child: ElevatedButton(
-                onPressed: () {
-                  final rota = MaterialPageRoute(
-                      builder: (context) => const Agendar());
-
-                  Navigator.of(context).push(rota);
+            Padding(padding: const EdgeInsets.fromLTRB(50, 5, 50, 10),
+              child: ButtonDefault(
+                label: "Cadastrar",
+                aoClicar: () {
+                  _controller.entrarOnClick(
+                  onSuccess: () {
+                    final rota = MaterialPageRoute(builder: (context) => const AgendaCliente());
+                    Navigator.of(context).pushAndRemoveUntil(rota, (context) => true);
+                  }, 
+                  onFailure: (motivo) {
+                    MotionToast.error(
+                      title: const Text(
+                        'Error',
+                        style: TextStyle(
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                      description: const Text('Por favor preencha seus dados!'),
+                      animationType: AnimationType.fromLeft,
+                      position: MotionToastPosition.top,
+                      barrierColor: Colors.black.withOpacity(0.3),
+                      width: 300,
+                      height: 80,
+                      dismissable: false,
+                    ).show(context);                  
+                  });
                 },
-                child: const Text(
-                  'Entrar',
-                  style: TextStyle(color: Colors.white),
-                ),
-                style: ElevatedButton.styleFrom(
-                    primary: Colors.red, minimumSize: const Size(100, 50)),
               ),
             ),
-
-            //Criar conta
             Padding(
-              padding: const EdgeInsets.fromLTRB(450, 50, 450, 0),
-              child: TextButton(
-                onPressed: () {
-                  //criar rota, de onde para onde
-                  final rota = MaterialPageRoute(
-                    builder: (context) => const FormaLogin());
-
-                  Navigator.of(context).push(rota);
+              padding: const EdgeInsets.fromLTRB(50, 5, 50, 10),
+              child: ButtonDefault(
+                label: "Criar conta",
+                aoClicar: () {
+                  final rota = MaterialPageRoute(builder: (context) => const FormaLogin());
+                  Navigator.of(context).pushAndRemoveUntil(rota, (context) => true);
                 },
-                child: const Text(
-                  'Criar conta',
-                  style: TextStyle(color: Colors.white),
-                ),
               ),
             ),
           ],
         ));
+  }
+  void selectDestination(int index) {
+    setState(() {
+      _selectedDestination = index;
+    });
   }
 }

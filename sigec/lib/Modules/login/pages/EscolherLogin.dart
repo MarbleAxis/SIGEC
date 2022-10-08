@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-
-import 'cliente_page.dart';
-import 'empresa_page.dart';
-import 'funcionario_page.dart';
+import 'package:sigec/Modules/usuario/usuariosClientes/pages/cliente_page.dart';
+import 'package:sigec/Shared/components/button_form/button_form.dart';
+import '../../usuario/usuariosEmpresas/pages/empresa_page.dart';
+import '../../usuario/usuariosFuncionarios/pages/funcionario_page.dart';
 
 class FormaLogin extends StatefulWidget {
   const FormaLogin({Key? key}) : super(key: key);
@@ -25,71 +25,47 @@ class _FormaLoginState extends State<FormaLogin> {
 
       Padding(
         padding: EdgeInsets.fromLTRB(200, 70, 200, 20),
-        child: ElevatedButton(
-          onPressed: (){
+        child: ButtonDefault(
+          label: "Cadastrar como empresa",
+          aoClicar: (){
             final rota = MaterialPageRoute(
             builder: (context) => const EmpresaPage());
 
             Navigator.of(context).push(rota);
           },
-          child: Text(
-            'Cadastrar pela empresa',
-            style: const TextStyle(fontSize: 18),
-          ),
-          style: ElevatedButton.styleFrom(
-            fixedSize: const Size(500, 50),
-            primary: Color.fromARGB(255, 1, 44, 45),
-          ),
+          cor: Color.fromARGB(255, 1, 44, 45),
         ),
-        ),
+      ),
 
-        Padding(
+      Padding(
         padding: EdgeInsets.fromLTRB(200, 70, 200, 20),
-        child: ElevatedButton(
-          onPressed: (){
+        child: ButtonDefault(
+          label: "Cadastrar como funcionário",
+          aoClicar: (){
             final rota = MaterialPageRoute(
             builder: (context) => const FuncionarioPage());
 
-        Navigator.of(context).push(rota);
+            Navigator.of(context).push(rota);
           },
-          child: Text(
-            'Cadastrar pelo funcionário',
-            style: const TextStyle(fontSize: 18),
-          ),
-          style: ElevatedButton.styleFrom(
-            fixedSize: const Size(500, 50),
-            primary: Color.fromARGB(255, 1, 44, 45),
-          ),
+          cor: Color.fromARGB(255, 1, 44, 45),
         ),
-        ),
+      ),
 
-        Padding(
+      Padding(
         padding: EdgeInsets.fromLTRB(200, 70, 200, 20),
-        child: ElevatedButton(
-          onPressed: (){
+        child: ButtonDefault(
+          label: "Cadastrar como cliente",
+          aoClicar: (){
             final rota = MaterialPageRoute(
-          builder: (context) => const ClientePage());
+            builder: (context) => const ClientePage());
 
-        Navigator.of(context).push(rota);
+            Navigator.of(context).push(rota);
           },
-          child: Text(
-            'Cadastrar pelo cliente',
-            style: const TextStyle(fontSize: 18),
-          ),
-          style: ElevatedButton.styleFrom(
-            fixedSize: const Size(500, 50),
-            primary: Color.fromARGB(255, 1, 44, 45),
-          ),
+          cor: Color.fromARGB(255, 1, 44, 45),
         ),
-        ),
-
-      
-
+      ),
     ],    
     )
-
-    
-
     );
   }
 }

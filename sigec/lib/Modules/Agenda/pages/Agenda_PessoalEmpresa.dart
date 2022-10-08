@@ -1,14 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:syncfusion_flutter_calendar/calendar.dart';
 
-class HomePage extends StatefulWidget {
-  const HomePage({ Key? key }) : super(key: key);
+
+class AgendaEmpresa extends StatefulWidget {
+  const AgendaEmpresa({ Key? key }) : super(key: key);
 
   @override
-  State<HomePage> createState() => _HomePageState();
+  State<AgendaEmpresa> createState() => _AgendaEmpresaState();
 }
 
-class _HomePageState extends State<HomePage> {
+class _AgendaEmpresaState extends State<AgendaEmpresa> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -18,7 +19,7 @@ class _HomePageState extends State<HomePage> {
       child: SfCalendar(
           view: CalendarView.month
         ),
-      ),
+      )
     );
   }
 }
